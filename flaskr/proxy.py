@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template
 from requests import get
 
+from plugin_manager import PluginManager
+
 app = Flask(__name__)
 
 
@@ -13,11 +15,13 @@ def proxy(path):
 
 
 def inspect_request():
-    return True
+    pl_mgr = PluginManager()
+    return pl_mgr.filter(request, True)
 
 
 def inspect_response():
-    return True
+    pl_mgr = PluginManager()
+    return pl_mgr.filter(request, True)
 
 
 if __name__ == '__main__':
