@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 from requests import get
 
 from plugin_manager import PluginManager
+from config import Config
 
 app = Flask(__name__)
 
@@ -9,9 +10,14 @@ app = Flask(__name__)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def proxy(path):
-    if inspect_request():
-        return render_template("403.html")
+    conf = Config()
+    if conf.params['enable'] and conf.params['direction'] != "outbound":
+        if inspect_request():
+            return render_template("403.html")
     resp = get(f'{request.base_url}{path}').content
+    if conf.params['enable'] and conf.params['direction'] != "inbound":
+        if inspect_response():
+            return render_template("403.html")
 
 
 def inspect_request():
