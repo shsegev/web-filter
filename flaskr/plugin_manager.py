@@ -35,6 +35,7 @@ class _PluginRepository:
                 for m in inspect.getmembers(module, inspect.isclass):
                     if hasattr(m[1], 'is_inbound') and hasattr(m[1], "check"):
                         inst = m[1]()
+                        inst.load_config()
                         if inst.is_inbound():
                             self._inbound_filters.append(inst)
                             self._log.debug(f"Class {m[0]} appended to inbound filters")
@@ -57,7 +58,7 @@ class PluginManager:
         self._repo = plugin_repository
 
     def filter(self, payload, inbound=True):
-        self._repo.filter(payload, inbound)
+        return self._repo.filter(payload, inbound)
 
     def config(self):
         # TODO: implement configuration

@@ -10,6 +10,7 @@ class ResponseKeywords(BasePlugin):
     def __init__(self):
         super().__init__()
         self._log = Logger('ResponseKeywords')
+        self._config_name = 'response_keys'
 
     def check(self, payload):
         self._log.debug("checking blocked sites list.")

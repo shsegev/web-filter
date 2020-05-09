@@ -8,6 +8,7 @@ class BasePlugin:
 
     def __init__(self):
         self._log = Logger('baseplugin')
+        self._config_name = ""
         self._pattern = None
         self._enabled = True
         self._re = None
@@ -20,15 +21,15 @@ class BasePlugin:
         else:
             return False
 
-    def load_config(self, name):
+    def load_config(self):
         # for all current plugins, the implemention is based on the same concept.
         # Check for existing text in a section
         conf = Config()
         try:
-            self._enabled = conf.params[name]['enabled'] == 1
-            self._pattern = "|".join(conf.params[name]["values"])
+            self._enabled = conf.params[self._config_name]['enabled'] == "1"
+            self._pattern = "|".join(conf.params[self._config_name]["values"])
         except KeyError:
-            self._log.error(f"configuration values 'enabled' or value not found in {name}")
+            self._log.error(f"configuration values 'enabled' or value not found in {self._config_name}")
         try:
             self._re = re.compile(self._pattern)
         except re.error:
