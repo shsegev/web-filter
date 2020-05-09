@@ -4,16 +4,20 @@ import sys
 import threading
 
 
-def init_logger(name, output_file=""):
+def init_logger(name, output_file="", level=logging.DEBUG):
     the_logger = logging.getLogger(name)
     formatter = logging.Formatter('%(asctime)s\t %(name)-32s %(levelname)-8s %(message)s')
     stream_handler = logging.StreamHandler(sys.stdout)
     stream_handler.setFormatter(formatter)
+    stream_handler.setLevel(level)
     the_logger.addHandler(stream_handler)
     if output_file != "":
         file_handler = logging.handlers.RotatingFileHandler(output_file, 'a', 15 * 1024 * 1024, 100)
         file_handler.setFormatter(formatter)
+        file_handler.setLevel(level)
         the_logger.addHandler(file_handler)
+    the_logger.setLevel(level)
+    the_logger.info(f"logging started {output_file}")
     return the_logger
 
 

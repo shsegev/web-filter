@@ -5,7 +5,7 @@ from utils.logger import Logger
 class ResponseKeywords(BasePlugin):
     @classmethod
     def is_inbound(cls):
-        return True
+        return False
 
     def __init__(self):
         super().__init__()
@@ -13,4 +13,5 @@ class ResponseKeywords(BasePlugin):
 
     def check(self, payload):
         self._log.debug("checking blocked sites list.")
+        return True
 

@@ -13,4 +13,5 @@ class HeadersValidator(BasePlugin):
 
     def check(self, payload):
         self._log.debug("checking blocked sites list.")
+        return True
 

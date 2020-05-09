@@ -1,8 +1,9 @@
 from flask import Flask, request, render_template
 from requests import get
 
-from plugin_manager import PluginManager
+from plugin_manager import PluginManager, init_plugins
 from config import Config
+from utils.logger import init_logger, Logger
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ def proxy(path):
     if conf.params['enable'] and conf.params['direction'] != "inbound":
         if inspect_response():
             return render_template("403.html")
+    return resp
 
 
 def inspect_request():
@@ -31,6 +33,9 @@ def inspect_response():
 
 
 if __name__ == '__main__':
-    # read configuration
-
+    # TODO set logs relative to current folder
+    init_logger("", "/home/shai/repos/web-filter/logs/filter.log")
+    logger = Logger("main")
+    logger.info("Filter Started")
+    init_plugins()
     app.run(host='0.0.0.0', port=8080)

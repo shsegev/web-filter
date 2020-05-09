@@ -5,7 +5,7 @@ from utils.logger import Logger
 
 
 class _Config:
-    def __init__(self, path="conf/filter.json"):
+    def __init__(self, path="./conf/filter.json"):
         self._log = Logger('config')
         self.conf_path = path
         self._ready = False
