@@ -1,0 +1,33 @@
+{
+  "enabled": "1",
+  "port": "8080",
+  "direction": "both",
+  "sites":
+  {
+    "enabled": "1",
+    "values":
+    [
+      "example.com",
+      "nowhere.con",
+      "news.co.il"
+    ]
+  },
+  "headers":
+  {
+    "enabled": "1",
+    "values":
+    [
+      "hacker",
+      "probe"
+    ]
+  },
+  "response_keys":
+  {
+    "enabled": "1",
+    "values":
+    [
+      "abuse",
+      "terror"
+    ]
+  }
+}
